@@ -11,6 +11,7 @@ export const localRestaurants = [
       price: "$$",
       reviews: 1244,
       rating: 4.5,
+      city: "San Francisco",
     },
     {
       name: "Benihana",
@@ -20,6 +21,7 @@ export const localRestaurants = [
       price: "$$",
       reviews: 1244,
       rating: 3.7,
+      city: "California",
     },
     {
       name: "India's Grill",
@@ -29,14 +31,15 @@ export const localRestaurants = [
       price: "$$",
       reviews: 700,
       rating: 4.9,
+      city: "San Francisco",
     },
 ];
 
 
-export default function RestaurantItems(props) {
+export default function RestaurantItems() {
   return (
     <TouchableOpacity activeOpacity={1} style={{ marginBottom: 30 }}>
-        {props.restaurantData.map((restaurant, index) => (
+        {localRestaurants.map((restaurant, index) => (
         <View
             key={index}
             style={{ marginTop: 10, padding: 15, backgroundColor: "white" }}
