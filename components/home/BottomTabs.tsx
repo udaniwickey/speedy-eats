@@ -15,15 +15,16 @@ export default function BottomTabs() {
   );
 }
 
-const Icon = (props: {icon: any; text: any}) => (
+const Icon = (props: {icon: string; text: string}) => (
   <TouchableOpacity>
     <View>
       <FontAwesome5
         name={props.icon}
+        color={'black'}
         size={25}
         style={styles.iconStyleContainer}
       />
-      <Text>{props.text}</Text>
+      <Text style={{color: 'black'}}>{props.text}</Text>
     </View>
   </TouchableOpacity>
 );

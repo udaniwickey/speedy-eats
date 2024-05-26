@@ -17,7 +17,7 @@ export const localRestaurants: Restaurant[] = [
     name: 'Beachside Bar',
     image_url:
       'https://static.onecms.io/wp-content/uploads/sites/9/2020/04/24/ppp-why-wont-anyone-rescue-restaurants-FT-BLOG0420.jpg',
-    categories: ['Cafe', 'Bar'],
+    categories: [{title: 'Cafe'}, {title: 'Bar'}],
     price: '$$',
     reviews: 1244,
     rating: 4.5,
@@ -27,7 +27,7 @@ export const localRestaurants: Restaurant[] = [
     name: 'Benihana',
     image_url:
       'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGludGVyaW9yfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80',
-    categories: ['Cafe', 'Bar'],
+    categories: [{title: 'Cafe'}, {title: 'Bar'}],
     price: '$$',
     reviews: 1244,
     rating: 3.7,
@@ -37,7 +37,7 @@ export const localRestaurants: Restaurant[] = [
     name: "India's Grill",
     image_url:
       'https://images.unsplash.com/photo-1517248135467-4c7edcad34c4?ixid=MnwxMjA3fDB8MHxzZWFyY2h8MXx8cmVzdGF1cmFudCUyMGludGVyaW9yfGVufDB8fDB8fA%3D%3D&ixlib=rb-1.2.1&w=1000&q=80',
-    categories: ['Indian', 'Bar'],
+    categories: [{title: 'Indian'}, {title: 'Comfort Food'}],
     price: '$$',
     reviews: 700,
     rating: 4.9,
@@ -45,26 +45,38 @@ export const localRestaurants: Restaurant[] = [
   },
 ];
 
-interface props {
+type Props = {
   navigation: any;
-}
-
-const RestaurantItem: React.FC<props> = ({navigation, ...props}) => {
-  return (
-    <TouchableOpacity
-      {...props}
-      activeOpacity={1}
-      style={styles.restaurantItemTouchableContainer}
-      onPress={() => navigation.navigate('RestaurantDetail')}>
-      {localRestaurants.map((restaurant, index) => (
-        <View key={index} style={styles.restaurantItemContainer}>
-          <RestaurantImage image={restaurant.image_url} />
-          <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
-        </View>
-      ))}
-    </TouchableOpacity>
-  );
 };
+
+export default function RestaurantItem({navigation}: Props, {...props}) {
+  return (
+    <>
+      {localRestaurants.map((restaurant, index) => (
+        <TouchableOpacity
+          key={index}
+          {...props}
+          activeOpacity={1}
+          style={styles.restaurantItemTouchableContainer}
+          onPress={() =>
+            navigation.navigate('RestaurantDetail', {
+              name: restaurant.name,
+              image: restaurant.image_url,
+              price: restaurant.price,
+              reviews: restaurant.reviews,
+              rating: restaurant.rating,
+              categories: restaurant.categories,
+            })
+          }>
+          <View style={styles.restaurantItemContainer}>
+            <RestaurantImage image={restaurant.image_url} />
+            <RestaurantInfo name={restaurant.name} rating={restaurant.rating} />
+          </View>
+        </TouchableOpacity>
+      ))}
+    </>
+  );
+}
 
 interface RestaurantImageProps {
   image: string;
@@ -134,5 +146,3 @@ const styles = StyleSheet.create({
   },
   restaurantItemTouchableContainer: {marginBottom: 30},
 });
-
-export default RestaurantItem;
